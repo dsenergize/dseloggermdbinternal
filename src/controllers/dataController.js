@@ -3,10 +3,12 @@ import DataModel from '../models/dataSchema.js';
 // Create a new data entry
 export const createData = async (req, res) => {
   try {
+    console.log('Incoming Data:', req.body); // Log the incoming data
     const newData = new DataModel({ data: req.body });
     const savedData = await newData.save();
     res.status(201).json(savedData);
   } catch (error) {
+    console.error('Error Saving Data:', error.message); // Log the error
     res.status(500).json({ error: error.message });
   }
 };
