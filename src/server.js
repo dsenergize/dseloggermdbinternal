@@ -1,6 +1,6 @@
 import express from 'express';
-import { connectDB } from './src/config/db.js';
-import dataRoutes from './src/routes/dataRoutes.js';
+import { connectDB } from './config/db.js';
+import dataRoutes from './routes/dataRoutes.js';
 import 'dotenv/config';
 
 const app = express();
