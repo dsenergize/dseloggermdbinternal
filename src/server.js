@@ -15,7 +15,7 @@ app.use('/api', dataRoutes);
 connectDB();
 
 // Start server
-const PORT = process.env.PORT || 8000;
+ const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
   console.log(`📦 MongoDB: ${process.env.MONGO_URI.split('@')[1]}`);
