@@ -1,6 +1,5 @@
 import express from 'express';
-// import common from '../common.js'; // If `common.js` is in the parent directory
-// import common from './common.js'; // If `common.js` is in the same directory
+
 import { connectDB } from './config/db.js';
 import dataRoutes from './routes/dataRoutes.js';
 import 'dotenv/config';
