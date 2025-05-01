@@ -1,26 +1,19 @@
 import express from 'express';
-import { 
-  ingestSolarData, 
-  getSystemHealth 
+import {
+  createData,
+  getAllData,
+  getDataById,
+  updateData,
+  deleteData,
 } from '../controllers/dataController.js';
-import { 
-  authenticate, 
-  validateSolarData 
-} from '../middlewares/auth.js';
+
 
 const router = express.Router();
 
-// Data ingestion endpoint
-router.post('/ingest',
-  authenticate,
-  validateSolarData,
-  ingestSolarData
-);
-
-// Monitoring endpoint
-router.get('/health/:siteId',
-  authenticate,
-  getSystemHealth
-);
+router.post('/packets', createData); // Create data
+router.get('/', getAllData); // Get all data
+router.get('/:id', getDataById); // Get data by ID
+router.put('/:id', updateData); // Update data by ID
+router.delete('/:id', deleteData); // Delete data by ID
 
 export default router;
