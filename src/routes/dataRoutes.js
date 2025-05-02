@@ -7,6 +7,14 @@ import {
   deleteData,
 } from '../controllers/dataController.js';
 
+import { Router } from 'express';
+import { createPing } from '../controllers/dataController.js';
+
+const pingRouter = Router();
+
+pingRouter.post('/pings', createPing);
+
+export { pingRouter };
 
 const router = express.Router();
 

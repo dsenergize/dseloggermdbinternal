@@ -1,5 +1,50 @@
 import DataModel from '../models/dataSchema.js';
 
+import Ping from '../models/pingSchema.js'; // Assuming you have a Ping model defined
+export const createPing = async (req, res) => {
+  try {
+    const { imei, signal, time, ...rest } = req.body;
+
+    // Validation
+    if (!imei) {
+      return res.status(400).json({
+        status: 'error',
+        message: 'IMEI is required'
+      });
+    }
+
+    // Create new ping record
+    const newPing = new Ping({
+      imei,
+      signal: Number(signal) || 0,
+      deviceTime: time,
+      rawData: rest
+    });
+
+    // Save to database
+    await newPing.save();
+
+    // Send response
+    res.status(201).json({
+      status: 'success',
+      message: 'Ping recorded',
+      data: {
+        imei,
+        serverTime: new Date().toISOString(),
+        signalStrength: newPing.signal
+      }
+    });
+
+  } catch (error) {
+    console.error('Controller error:', error);
+    res.status(500).json({
+      status: 'error',
+      message: 'Internal server error',
+      error: process.env.NODE_ENV === 'development' ? error.message : undefined
+    });
+  }
+};
+
 // Create a new data entry
 export const createData = async (req, res) => {
   try {
