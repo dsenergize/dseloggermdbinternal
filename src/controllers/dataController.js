@@ -1,3 +1,4 @@
+import { console } from 'inspector/promises';
 import DataModel from '../models/dataSchema.js';
 
 import Ping from '../models/pingSchema.js'; // Assuming you have a Ping model defined
@@ -48,9 +49,10 @@ export const createPing = async (req, res) => {
 // Create a new data entry
 export const createData = async (req, res) => {
   try {
-    const newData = new DataModel({ data: req.body });
-    const savedData = await newData.save();
-    res.status(201).json(savedData);
+    console.log('api hit with loger :', ); // Log the received data
+   console.log ('Received data:', req.body); // Log the received data
+   console.log('api after hit with loger :', );
+    res.status(200).json("Data recived");
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
