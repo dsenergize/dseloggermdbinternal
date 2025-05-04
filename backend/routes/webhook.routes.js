@@ -6,6 +6,7 @@ const router = express.Router();
 
 router.post("/packets", async (req, res) => {
   const body = req.body;
+  console.log("body hai",req.body)
 
   try {
     if (body?.response?.msg === "ping") {
