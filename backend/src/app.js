@@ -1,7 +1,7 @@
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
-import webhookRoutes from "./routes/webhook.routes.js";
+import webhookRoutes from "../src/routes/webhook.routes.js";
 
 dotenv.config();
 
