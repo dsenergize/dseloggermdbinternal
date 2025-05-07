@@ -1,22 +1,26 @@
-import express from "express";
-import mongoose from "mongoose";
-import dotenv from "dotenv";
-import webhookRoutes from "../src/routes/webhook.routes.js";
+import express from 'express';
+import dotenv from 'dotenv';
+import { connectToMongoDB } from './db/mongoClient.js';
+import webhookRoutes from './routes/webhookRoutes.js';
 
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(express.json());
-app.use("/api", webhookRoutes);
+// Middleware
+app.use(express.raw({ type: '*/*', limit: '2mb' }));
 
-mongoose.connect(process.env.MONGO_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-}).then(() => {
-  console.log("MongoDB connected");
-  app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-}).catch(err => {
-  console.error("MongoDB connection error:", err);
-});
+// Routes
+app.use('/', webhookRoutes);
+
+// Init & Start Server
+connectToMongoDB()
+  .then(() => {
+    app.listen(PORT, () => {
+      console.log(`🚀 Server running on port ${PORT}`);
+    });
+  })
+  .catch(err => {
+    console.error('❌ MongoDB connection failed:', err.message);
+  });
