@@ -10,9 +10,12 @@ const PORT = process.env.PORT || 3000;
 
 // Middleware
 app.use(express.raw({ type: '*/*', limit: '2mb' }));
+app.get('/', (req, res) => {
+  res.status(200).send('Server is running');
+});
 
 // Routes
-app.use('/', webhookRoutes);
+app.use('/api', webhookRoutes);
 
 // Init & Start Server
 connectToMongoDB()
