@@ -1,4 +1,4 @@
-import express from 'express';
+kimport express from 'express';
 import dotenv from 'dotenv';
 import { connectToMongoDB } from './db/mongoClient.js';
 import webhookRoutes from './routes/webhookRoutes.js';
@@ -10,7 +10,7 @@ const PORT = process.env.PORT || 3000;
 
 // Middleware
 app.use(express.raw({ type: '*/*', limit: '2mb' }));
-app.get('/', (req, res) => {
+app.get('/check', (req, res) => {
   res.status(200).send('Server is running');
 });
 
